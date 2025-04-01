@@ -7,20 +7,15 @@ interface ImageLoaderProps {
   fallbackSrc?: string;
 }
 
+// Simple path normalization for deployments
 const normalizePath = (path: string): string => {
   // If it's already an HTTP URL or data URL, return as is
   if (path.startsWith('http') || path.startsWith('data:')) {
     return path;
   }
   
-  // For production builds with base path
-  const isProd = import.meta.env.MODE === 'production';
-  if (isProd && path.startsWith('/')) {
-    // Remove leading slash to make path relative in production
-    return `.${path}`;
-  }
-  
-  return path;
+  // Make sure paths work in all environments by removing leading slash if present
+  return path.startsWith('/') ? path.substring(1) : path;
 };
 
 const ImageLoader: React.FC<ImageLoaderProps> = ({

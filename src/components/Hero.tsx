@@ -11,14 +11,8 @@ const getImagePath = (path: string): string => {
     return path;
   }
   
-  // For production builds with base path
-  const isProd = import.meta.env.MODE === 'production';
-  if (isProd && path.startsWith('/')) {
-    // Remove leading slash to make path relative in production
-    return `.${path}`;
-  }
-  
-  return path;
+  // Make sure paths work in all environments by removing leading slash if present
+  return path.startsWith('/') ? path.substring(1) : path;
 };
 
 const Hero: React.FC = () => {
