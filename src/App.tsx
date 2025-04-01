@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Navbar from './components/Navbar';
@@ -8,7 +8,6 @@ import Programs from './components/Programs';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
   useEffect(() => {
