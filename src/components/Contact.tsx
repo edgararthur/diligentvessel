@@ -172,10 +172,6 @@ const Contact = () => {
                   <span className="text-gray-600">No.9 Okponglo Road, Koforidua, Eastern Region, Ghana</span>
                 </div>
                 <div className="flex items-center space-x-4">
-                  <FaPhone className="text-accent text-xl" />
-                  <span className="text-gray-600">+233 302 123 456</span>
-                </div>
-                <div className="flex items-center space-x-4">
                   <FaEnvelope className="text-accent text-xl" />
                   <span className="text-gray-600">info@diligentvessel.co.site</span>
                 </div>
