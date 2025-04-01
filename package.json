@@ -10,19 +10,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.17",
+    "@types/react-router-dom": "^5.3.3",
+    "aos": "^2.3.4",
+    "framer-motion": "^10.16.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.12.0",
-    "react-scroll": "^1.9.0",
-    "aos": "^2.3.4",
-    "framer-motion": "^10.16.4",
-    "@headlessui/react": "^1.7.17"
+    "react-router-dom": "^7.4.1",
+    "react-scroll": "^1.9.0"
   },
   "devDependencies": {
+    "@types/aos": "^3.0.7",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@types/react-scroll": "^1.8.10",
-    "@types/aos": "^3.0.7",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
     "@typescript-eslint/parser": "^6.14.0",
     "@vitejs/plugin-react": "^4.2.1",

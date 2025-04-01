@@ -8,6 +8,7 @@ import Programs from './components/Programs';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
   useEffect(() => {
