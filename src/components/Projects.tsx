@@ -83,8 +83,13 @@ const getImagePath = (path: string) => {
   if (path.startsWith('http')) {
     return path;
   }
-  // For local images, ensure they work in both dev and production
-  return new URL(path, import.meta.url).href;
+  // For production builds with base path
+  const isProd = import.meta.env.MODE === 'production';
+  if (isProd && path.startsWith('/')) {
+    // Remove leading slash to make path relative in production
+    return `.${path}`;
+  }
+  return path;
 };
 
 interface ProjectCardProps {
@@ -114,7 +119,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
       </div>
       <div className="p-6">
         <h3 className="text-xl font-semibold mb-3">{project.title}</h3>
-        <p className="text-gray-600 mb-4">{project.description}</p>
+        <p className="text-gray-600 dark:text-gray-300 mb-4">{project.description}</p>
         <div className="space-y-2 text-sm text-gray-500 dark:text-gray-400">
           <div className="flex items-center space-x-2">
             <FaCalendarAlt className="text-accent" />
@@ -155,8 +160,8 @@ const Projects = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="section-title">Our Projects</h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mt-6">
+          <h2 className="text-3xl font-bold mb-4">Our Projects</h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Explore our impactful initiatives that are making a real difference in our communities.
           </p>
         </motion.div>
@@ -197,7 +202,7 @@ const Projects = () => {
           className="text-center mt-12"
         >
           <button 
-            className="btn-secondary"
+            className="px-6 py-3 bg-accent text-white rounded-full hover:bg-accent/90 transition-colors"
             onClick={() => {
               setShowAll(true);
               setActiveCategory('');

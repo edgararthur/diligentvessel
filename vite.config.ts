@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import path from 'path'
+import path from 'node:path'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -12,41 +12,35 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    target: 'es2015',
     outDir: 'dist',
     assetsDir: 'assets',
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
-    },
     rollupOptions: {
       output: {
-        manualChunks: {
-          react: ['react', 'react-dom'],
-          'react-icons': ['react-icons'],
-          'framer-motion': ['framer-motion'],
-        },
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
         assetFileNames: (assetInfo) => {
-          if (assetInfo.name?.endsWith('.jpg') || assetInfo.name?.endsWith('.png')) {
-            return 'assets/images/[name]-[hash][extname]'
+          if (assetInfo.name) {
+            if (assetInfo.name.endsWith('.jpg') || 
+                assetInfo.name.endsWith('.png') ||
+                assetInfo.name.endsWith('.jpeg') ||
+                assetInfo.name.endsWith('.gif')) {
+              return 'assets/images/[name]-[hash][extname]';
+            }
           }
-          return 'assets/[name]-[hash][extname]'
+          return 'assets/[name]-[hash][extname]';
         },
       },
     },
   },
   server: {
     port: 3000,
-    strictPort: true,
     open: true,
   },
-  css: {
-    devSourcemap: true,
+  publicDir: path.resolve(__dirname, 'public'),
+  esbuild: {
+    // Set a newer target to support import.meta
+    target: 'es2020',
+    // Fix issues with JSX in .tsx files
+    jsx: 'automatic',
   },
-  publicDir: 'public',
 }))

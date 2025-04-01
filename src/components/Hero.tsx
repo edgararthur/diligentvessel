@@ -1,14 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import { Link as ScrollLink } from 'react-scroll';
 import { FaArrowRight } from 'react-icons/fa';
+
+// Helper to normalize image paths
+const getImagePath = (path: string): string => {
+  // If it's already an HTTP URL or data URL, return as is
+  if (path.startsWith('http') || path.startsWith('data:')) {
+    return path;
+  }
+  
+  // For production builds with base path
+  const isProd = import.meta.env.MODE === 'production';
+  if (isProd && path.startsWith('/')) {
+    // Remove leading slash to make path relative in production
+    return `.${path}`;
+  }
+  
+  return path;
+};
 
 const Hero: React.FC = () => {
   const [backgroundImage, setBackgroundImage] = useState('/images/ghana-hero.jpg');
   
   useEffect(() => {
     const img = new Image();
-    img.src = backgroundImage;
+    img.src = getImagePath(backgroundImage);
     img.onload = () => {
       setBackgroundImage(img.src);
     };
@@ -25,12 +43,13 @@ const Hero: React.FC = () => {
     <section 
       className="relative h-screen flex items-center justify-center overflow-hidden"
       aria-label="Hero section"
+      id="hero"
     >
       {/* Background Image */}
       <div 
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: `url(${backgroundImage})`,
+          backgroundImage: `url(${getImagePath(backgroundImage)})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -68,13 +87,13 @@ const Hero: React.FC = () => {
           >
             Donate Now
           </button>
-          <Link 
+          <RouterLink 
             to="/projects" 
             className="bg-white/10 hover:bg-white/20 text-white px-8 py-3 rounded-full font-semibold transition-colors backdrop-blur-sm"
             aria-label="View our projects"
           >
             Learn More
-          </Link>
+          </RouterLink>
         </motion.div>
       </div>
 
@@ -85,9 +104,13 @@ const Hero: React.FC = () => {
         transition={{ delay: 1 }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
       >
-        <a 
-          href="#about" 
-          className="text-white/80 hover:text-white transition-colors"
+        <ScrollLink 
+          to="about" 
+          spy={true}
+          smooth={true}
+          offset={-70}
+          duration={500}
+          className="text-white/80 hover:text-white transition-colors cursor-pointer"
           aria-label="Scroll down to about section"
         >
           <svg 
@@ -103,7 +126,7 @@ const Hero: React.FC = () => {
               d="M19 14l-7 7m0 0l-7-7m7 7V3" 
             />
           </svg>
-        </a>
+        </ScrollLink>
       </motion.div>
     </section>
   );

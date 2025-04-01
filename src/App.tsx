@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Navbar from './components/Navbar';
@@ -49,17 +49,27 @@ function App() {
   }, []);
 
   return (
-    <div className="App transition-colors duration-300 bg-white dark:bg-gray-900">
-      <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-      <main>
-        <Hero />
-        <About />
-        <Programs />
-        <Projects />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <Router basename={import.meta.env.BASE_URL || '/'}>
+      <div className="App transition-colors duration-300 bg-white dark:bg-gray-900">
+        <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+        <main>
+          <Routes>
+            <Route path="/" element={
+              <>
+                <Hero />
+                <About />
+                <Programs />
+                <Projects />
+                <Contact />
+              </>
+            } />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
