@@ -149,9 +149,14 @@ const Contact = () => {
             {/* Map */}
             <div className="rounded-lg overflow-hidden shadow-lg mb-8 relative h-64">
               <img
-                src="https://images.unsplash.com/photo-1576475080960-62154cd5def3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                src="/images/ghana-office.jpg"
                 alt="Office location in Koforidua, Ghana"
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.onerror = null;
+                  target.src = 'https://source.unsplash.com/random/800x600/?ghana,africa,office,building';
+                }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
                 <div className="p-4 text-white">
@@ -167,7 +172,7 @@ const Contact = () => {
               <div className="space-y-4">
                 <div className="flex items-center space-x-4">
                   <FaMapMarkerAlt className="text-accent text-xl" />
-                  <span className="text-gray-600">123 Okponglo Road, Koforidua, Eastern Region, Ghana</span>
+                  <span className="text-gray-600">No.9 Okponglo Road, Koforidua, Eastern Region, Ghana</span>
                 </div>
                 <div className="flex items-center space-x-4">
                   <FaPhone className="text-accent text-xl" />
@@ -175,7 +180,7 @@ const Contact = () => {
                 </div>
                 <div className="flex items-center space-x-4">
                   <FaEnvelope className="text-accent text-xl" />
-                  <span className="text-gray-600">info@diligentvessel.org</span>
+                  <span className="text-gray-600">info@diligentvessel.co.site</span>
                 </div>
               </div>
 

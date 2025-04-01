@@ -86,23 +86,38 @@ const About = () => {
             <div className="relative">
               <div className="relative z-10 rounded-lg overflow-hidden shadow-xl">
                 <img
-                  src="https://images.unsplash.com/photo-1614786432661-336a15b42dc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  src="/images/ghana-classroom.jpg"
                   alt="Students in classroom in Ghana"
                   className="w-full h-auto object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.onerror = null;
+                    target.src = 'https://source.unsplash.com/random/800x600/?ghana,africa,classroom,education';
+                  }}
                 />
               </div>
               <div className="absolute -bottom-10 -right-10 w-60 h-60 rounded-lg overflow-hidden shadow-xl z-0 hidden md:block">
                 <img
-                  src="https://images.unsplash.com/photo-1603566345467-d8f69bedc9b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                  src="/images/ghana-community.jpg"
                   alt="Ghanaian community event"
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.onerror = null;
+                    target.src = 'https://source.unsplash.com/random/600x600/?ghana,africa,community';
+                  }}
                 />
               </div>
               <div className="absolute -top-10 -left-10 w-40 h-40 rounded-lg overflow-hidden shadow-xl z-0 hidden md:block">
                 <img
-                  src="https://images.unsplash.com/photo-1569074187119-c87815b476da?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-                  alt="Traditional Ghanaian celebration"
+                  src="/images/ghana-celebration.jpg"
+                  alt="Traditional African celebration"
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.onerror = null;
+                    target.src = 'https://source.unsplash.com/random/400x400/?ghana,africa,celebration,culture';
+                  }}
                 />
               </div>
             </div>

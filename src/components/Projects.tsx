@@ -19,7 +19,7 @@ const projects: Project[] = [
     title: 'Community Library Initiative',
     category: 'Education',
     description: 'Establishing a modern community library with over 5,000 books and digital resources to promote literacy and lifelong learning.',
-    image: 'https://images.unsplash.com/photo-1572028412480-0a75271c6bb7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: '/images/project-library.jpg',
     date: 'Ongoing since 2019',
     location: 'Koforidua, Ghana',
     impact: '2,000+ community members served',
@@ -29,7 +29,7 @@ const projects: Project[] = [
     title: 'Clean Water Access Project',
     category: 'Health',
     description: 'Installing water purification systems and wells to provide safe drinking water to underserved communities in rural areas.',
-    image: 'https://images.unsplash.com/photo-1627395489758-2363a9e93c97?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: '/images/project-water.jpg',
     date: 'Completed in 2022',
     location: 'Asuogyaman District, Ghana',
     impact: '10 villages, 5,000+ residents',
@@ -39,7 +39,7 @@ const projects: Project[] = [
     title: 'Youth Coding Academy',
     category: 'Education',
     description: 'Teaching programming and digital skills to young people through hands-on workshops and mentorship programs.',
-    image: 'https://images.unsplash.com/photo-1614786432661-336a15b42dc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: '/images/project-coding.jpg',
     date: 'Ongoing since 2020',
     location: 'Koforidua, Ghana',
     impact: '300+ students trained',
@@ -49,7 +49,7 @@ const projects: Project[] = [
     title: 'Maternal Health Outreach',
     category: 'Health',
     description: 'Providing prenatal care, education, and support for expectant mothers in underserved communities to reduce maternal mortality.',
-    image: 'https://images.unsplash.com/photo-1590610568551-5e9edb469332?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: '/images/project-health.jpg',
     date: 'Ongoing since 2018',
     location: 'Eastern Region, Ghana',
     impact: '500+ mothers supported',
@@ -59,7 +59,7 @@ const projects: Project[] = [
     title: 'Sustainable Agriculture Program',
     category: 'Environment',
     description: 'Training local farmers in sustainable farming techniques to improve crop yields while protecting the environment.',
-    image: 'https://images.unsplash.com/photo-1497376822814-28b8da427feb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: '/images/project-agriculture.jpg',
     date: 'Ongoing since 2021',
     location: 'Various rural communities',
     impact: '150+ farmers trained',
@@ -69,7 +69,7 @@ const projects: Project[] = [
     title: 'Cultural Heritage Festival',
     category: 'Culture',
     description: 'Annual celebration of local traditions, arts, and cultural practices to preserve heritage and promote cultural education.',
-    image: 'https://images.unsplash.com/photo-1565622200858-693022fe0a28?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: '/images/project-culture.jpg',
     date: 'Annual event',
     location: 'Koforidua, Ghana',
     impact: '1,000+ participants yearly',
@@ -94,6 +94,11 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
           src={project.image}
           alt={project.title}
           className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.onerror = null;
+            target.src = 'https://source.unsplash.com/random/800x600/?ghana,africa,' + project.category.toLowerCase();
+          }}
         />
         <div className="absolute top-4 right-4 bg-accent text-white text-xs font-semibold px-2 py-1 rounded">
           {project.category}

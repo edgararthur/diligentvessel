@@ -43,3 +43,16 @@
   --color-accent: #3b82f6;
   --color-accent-dark: #2563eb;
 }
+
+[style*="url('/images/"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f2b233;
+  background-image: linear-gradient(45deg, #f2b233 25%, #e9a315 25%, #e9a315 50%, #f2b233 50%, #f2b233 75%, #e9a315 75%, #e9a315 100%);
+  background-size: 56.57px 56.57px;
+  z-index: -1;
+}

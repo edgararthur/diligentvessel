@@ -1,8 +1,20 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-scroll';
 import { FaArrowRight } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
 
 const Hero = () => {
+  const [backgroundImage, setBackgroundImage] = useState('/images/ghana-hero.jpg');
+  
+  useEffect(() => {
+    // Check if the image exists, if not use a fallback
+    const img = new Image();
+    img.onerror = () => {
+      setBackgroundImage('https://source.unsplash.com/random/1920x1080/?ghana,africa,culture');
+    };
+    img.src = backgroundImage;
+  }, []);
+  
   const handleDonate = () => {
     window.open('https://donate.diligentvessel.org', '_blank');
   };
@@ -12,7 +24,7 @@ const Hero = () => {
       id="hero"
       className="min-h-screen relative flex items-center justify-center"
       style={{
-        backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("https://images.unsplash.com/photo-1580902394724-b08ff9ba7e8a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80")',
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("${backgroundImage}")`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}

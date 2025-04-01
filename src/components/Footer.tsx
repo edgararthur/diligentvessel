@@ -180,8 +180,8 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-semibold mb-6">Contact Us</h3>
             <ul className="space-y-3 text-gray-400">
-              <li>123 Okponglo Road, Koforidua, Eastern Region, Ghana</li>
-              <li>info@diligentvessel.org</li>
+              <li>No.9 Okponglo Road, Koforidua, Eastern Region, Ghana</li>
+              <li>info@diligentvessel.co.site</li>
               <li>+233 302 123 456</li>
               <li>Monday - Friday: 9am - 5pm</li>
             </ul>
