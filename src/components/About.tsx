@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { FaUsers, FaHandHoldingHeart, FaGlobe, FaGraduationCap } from 'react-icons/fa';
+import ImageLoader from './ui/ImageLoader';
 
 const About = () => {
   const stats = [
@@ -85,39 +86,27 @@ const About = () => {
           >
             <div className="relative">
               <div className="relative z-10 rounded-lg overflow-hidden shadow-xl">
-                <img
+                <ImageLoader
                   src="/images/ghana-classroom.jpg"
                   alt="Students in classroom in Ghana"
                   className="w-full h-auto object-cover"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.onerror = null;
-                    target.src = 'https://source.unsplash.com/random/800x600/?ghana,africa,classroom,education';
-                  }}
+                  fallbackSrc="https://source.unsplash.com/random/800x600/?ghana,africa,classroom,education"
                 />
               </div>
               <div className="absolute -bottom-10 -right-10 w-60 h-60 rounded-lg overflow-hidden shadow-xl z-0 hidden md:block">
-                <img
+                <ImageLoader
                   src="/images/ghana-community.jpg"
                   alt="Ghanaian community event"
                   className="w-full h-full object-cover"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.onerror = null;
-                    target.src = 'https://source.unsplash.com/random/600x600/?ghana,africa,community';
-                  }}
+                  fallbackSrc="https://source.unsplash.com/random/600x600/?ghana,africa,community"
                 />
               </div>
               <div className="absolute -top-10 -left-10 w-40 h-40 rounded-lg overflow-hidden shadow-xl z-0 hidden md:block">
-                <img
+                <ImageLoader
                   src="/images/ghana-celebration.jpg"
                   alt="Traditional African celebration"
                   className="w-full h-full object-cover"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.onerror = null;
-                    target.src = 'https://source.unsplash.com/random/400x400/?ghana,africa,celebration,culture';
-                  }}
+                  fallbackSrc="https://source.unsplash.com/random/400x400/?ghana,africa,celebration,culture"
                 />
               </div>
             </div>

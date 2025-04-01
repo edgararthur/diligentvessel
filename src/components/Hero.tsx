@@ -28,6 +28,7 @@ const Hero = () => {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
+      aria-label="Hero section with background image of Ghana"
     >
       <div className="container mx-auto px-6 text-center text-white z-10">
         <motion.div
@@ -51,12 +52,14 @@ const Hero = () => {
               offset={-70}
               duration={500}
               className="btn-primary bg-accent hover:bg-accent-dark text-white"
+              aria-label="Learn more about Diligent Vessel Foundation"
             >
               Learn More
             </Link>
             <button 
-              className="btn-secondary border-white text-white hover:bg-white hover:text-accent"
+              className="btn-secondary border-white text-white hover:bg-white hover:text-accent dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-accent"
               onClick={handleDonate}
+              aria-label="Donate to Diligent Vessel Foundation"
             >
               Donate Now
             </button>
@@ -80,6 +83,7 @@ const Hero = () => {
               offset={-70}
               duration={500}
               className="text-white inline-block cursor-pointer"
+              aria-label="Scroll down to discover our mission"
             >
               <span className="block mb-2 text-sm">Discover Our Mission</span>
               <FaArrowRight className="mx-auto transform rotate-90" />

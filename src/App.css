@@ -1,6 +1,38 @@
 /* Add at the end of file */
 
-/* Placeholder for missing images */
+/* Optimization for rendering */
+.App {
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth transitions between modes */
+.App {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Smooth scrolling anchor navigation */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Adjusts for fixed header */
+}
+
+/* Parallax effect for background elements */
+.parallax {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Accessibility focus styles */
+:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Placeholder for missing images - Light Mode */
 img[src^="/images/"] {
   background-color: #f2b233;
   background-image: linear-gradient(45deg, #f2b233 25%, #e9a315 25%, #e9a315 50%, #f2b233 50%, #f2b233 75%, #e9a315 75%, #e9a315 100%);
@@ -9,6 +41,13 @@ img[src^="/images/"] {
   position: relative;
 }
 
+/* Placeholder for missing images - Dark Mode */
+.dark img[src^="/images/"] {
+  background-color: #533f17;
+  background-image: linear-gradient(45deg, #533f17 25%, #3d2f10 25%, #3d2f10 50%, #533f17 50%, #533f17 75%, #3d2f10 75%, #3d2f10 100%);
+}
+
+/* Image content labels */
 img[src^="/images/"]::after {
   content: "Ghana Image";
   position: absolute;
@@ -19,4 +58,19 @@ img[src^="/images/"]::after {
   font-weight: bold;
   font-size: 1.25rem;
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+.dark img[src^="/images/"]::after {
+  color: white;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
+
+/* Lazy loading animation */
+.lazy-load-image-background.opacity {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.lazy-load-image-background.opacity.lazy-load-image-loaded {
+  opacity: 1;
 } 

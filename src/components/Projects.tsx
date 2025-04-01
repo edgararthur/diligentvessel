@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaCalendarAlt, FaMapMarkerAlt, FaUsers } from 'react-icons/fa';
+import ImageLoader from './ui/ImageLoader';
 
 interface Project {
   id: number;
@@ -90,15 +91,11 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
       className="overflow-hidden rounded-lg shadow-lg h-full"
     >
       <div className="relative overflow-hidden h-48">
-        <img
+        <ImageLoader
           src={project.image}
           alt={project.title}
           className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.onerror = null;
-            target.src = 'https://source.unsplash.com/random/800x600/?ghana,africa,' + project.category.toLowerCase();
-          }}
+          fallbackSrc={`https://source.unsplash.com/random/800x600/?ghana,africa,${project.category.toLowerCase()}`}
         />
         <div className="absolute top-4 right-4 bg-accent text-white text-xs font-semibold px-2 py-1 rounded">
           {project.category}
@@ -107,7 +104,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
       <div className="p-6">
         <h3 className="text-xl font-semibold mb-3">{project.title}</h3>
         <p className="text-gray-600 mb-4">{project.description}</p>
-        <div className="space-y-2 text-sm text-gray-500">
+        <div className="space-y-2 text-sm text-gray-500 dark:text-gray-400">
           <div className="flex items-center space-x-2">
             <FaCalendarAlt className="text-accent" />
             <span>{project.date}</span>
@@ -138,7 +135,7 @@ const Projects = () => {
   const displayedProjects = showAll ? projects : filteredProjects;
 
   return (
-    <section id="projects" className="py-20 bg-gray-50">
+    <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-800">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -148,7 +145,7 @@ const Projects = () => {
           className="text-center mb-16"
         >
           <h2 className="section-title">Our Projects</h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto mt-6">
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mt-6">
             Explore our impactful initiatives that are making a real difference in our communities.
           </p>
         </motion.div>
@@ -165,8 +162,9 @@ const Projects = () => {
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
                 activeCategory === category && !showAll
                   ? 'bg-accent text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-100'
+                  : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600'
               }`}
+              aria-label={`Filter projects by ${category}`}
             >
               {category}
             </button>

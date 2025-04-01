@@ -9,16 +9,32 @@
   
   body {
     font-family: 'Inter', sans-serif;
+    @apply text-gray-800 dark:text-gray-200;
   }
   
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Montserrat', sans-serif;
   }
+
+  /* Improve image rendering */
+  img {
+    image-rendering: auto;
+    @apply transition-opacity;
+  }
+
+  /* Improve loading states */
+  img.loading {
+    @apply opacity-0;
+  }
+
+  img.loaded {
+    @apply opacity-100;
+  }
 }
 
 @layer components {
   .section-title {
-    @apply text-3xl md:text-4xl font-bold text-gray-900 relative pb-3;
+    @apply text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 relative pb-3;
   }
   
   .section-title::after {
@@ -27,7 +43,7 @@
   }
   
   .card {
-    @apply bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col h-full;
+    @apply bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col h-full;
   }
   
   .btn-primary {
@@ -35,7 +51,7 @@
   }
   
   .btn-secondary {
-    @apply px-6 py-3 rounded-lg font-semibold border-2 border-accent text-accent hover:bg-accent hover:text-white transition-colors duration-300 inline-block;
+    @apply px-6 py-3 rounded-lg font-semibold border-2 border-accent text-accent hover:bg-accent hover:text-white transition-colors duration-300 inline-block dark:border-accent dark:text-accent dark:hover:bg-accent dark:hover:text-white;
   }
 }
 
@@ -44,6 +60,22 @@
   --color-accent-dark: #2563eb;
 }
 
+.dark {
+  --color-accent: #60a5fa;
+  --color-accent-dark: #3b82f6;
+}
+
+/* Optimize animations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Image placeholder styling */
 [style*="url('/images/"]::before {
   content: '';
   position: absolute;
@@ -55,4 +87,9 @@
   background-image: linear-gradient(45deg, #f2b233 25%, #e9a315 25%, #e9a315 50%, #f2b233 50%, #f2b233 75%, #e9a315 75%, #e9a315 100%);
   background-size: 56.57px 56.57px;
   z-index: -1;
+}
+
+.dark [style*="url('/images/"]::before {
+  background-color: #533f17;
+  background-image: linear-gradient(45deg, #533f17 25%, #3d2f10 25%, #3d2f10 50%, #533f17 50%, #533f17 75%, #3d2f10 75%, #3d2f10 100%);
 }

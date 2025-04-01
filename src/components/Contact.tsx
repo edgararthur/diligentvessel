@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import ImageLoader from './ui/ImageLoader';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -148,15 +149,11 @@ const Contact = () => {
           >
             {/* Map */}
             <div className="rounded-lg overflow-hidden shadow-lg mb-8 relative h-64">
-              <img
+              <ImageLoader
                 src="/images/ghana-office.jpg"
                 alt="Office location in Koforidua, Ghana"
                 className="w-full h-full object-cover"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.onerror = null;
-                  target.src = 'https://source.unsplash.com/random/800x600/?ghana,africa,office,building';
-                }}
+                fallbackSrc="https://source.unsplash.com/random/800x600/?ghana,africa,office,building"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
                 <div className="p-4 text-white">

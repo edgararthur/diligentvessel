@@ -1,16 +1,24 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-scroll';
 import { motion } from 'framer-motion';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes, FaMoon, FaSun } from 'react-icons/fa';
 
-const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+interface NavbarProps {
+  darkMode: boolean;
+  toggleDarkMode: () => void;
+}
+
+const Navbar = ({ darkMode, toggleDarkMode }: NavbarProps) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
-      const offset = window.scrollY;
-      if (offset > 50) {
+      if (window.scrollY > 50) {
         setScrolled(true);
       } else {
         setScrolled(false);
@@ -23,122 +31,189 @@ const Navbar = () => {
     };
   }, []);
 
-  const navLinks = [
-    { name: 'Home', target: 'hero' },
-    { name: 'About', target: 'about' },
-    { name: 'Programs', target: 'programs' },
-    { name: 'Projects', target: 'projects' },
-    { name: 'Contact', target: 'contact' },
-  ];
-
   return (
-    <nav
+    <header 
       className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
+        scrolled 
+          ? 'bg-white dark:bg-gray-900 shadow-md py-3' 
+          : 'bg-transparent py-5'
       }`}
     >
-      <div className="container mx-auto px-6">
-        <div className="flex justify-between items-center">
-          {/* Logo */}
+      <div className="container mx-auto px-6 flex justify-between items-center">
+        <Link
+          to="hero"
+          spy={true}
+          smooth={true}
+          offset={-70}
+          duration={500}
+          className="text-2xl font-bold cursor-pointer"
+        >
+          <span className={`${scrolled || darkMode ? 'text-accent' : 'text-white'}`}>
+            Diligent<span className="text-accent">Vessel</span>
+          </span>
+        </Link>
+
+        {/* Desktop Menu */}
+        <nav className="hidden md:flex items-center space-x-8">
           <Link
-            to="hero"
+            to="about"
             spy={true}
             smooth={true}
             offset={-70}
             duration={500}
-            className="cursor-pointer"
+            className={`nav-link ${
+              scrolled 
+                ? 'text-gray-800 dark:text-gray-200 hover:text-accent dark:hover:text-accent' 
+                : 'text-white hover:text-accent'
+            }`}
           >
-            <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">DV</span>
-              </div>
-              <span className={`font-heading font-bold text-xl ${scrolled ? 'text-gray-800' : 'text-white'}`}>
-                Diligent Vessel Foundation
-              </span>
-            </div>
+            About
           </Link>
+          <Link
+            to="programs"
+            spy={true}
+            smooth={true}
+            offset={-70}
+            duration={500}
+            className={`nav-link ${
+              scrolled 
+                ? 'text-gray-800 dark:text-gray-200 hover:text-accent dark:hover:text-accent' 
+                : 'text-white hover:text-accent'
+            }`}
+          >
+            Programs
+          </Link>
+          <Link
+            to="projects"
+            spy={true}
+            smooth={true}
+            offset={-70}
+            duration={500}
+            className={`nav-link ${
+              scrolled 
+                ? 'text-gray-800 dark:text-gray-200 hover:text-accent dark:hover:text-accent' 
+                : 'text-white hover:text-accent'
+            }`}
+          >
+            Projects
+          </Link>
+          <Link
+            to="contact"
+            spy={true}
+            smooth={true}
+            offset={-70}
+            duration={500}
+            className={`nav-link ${
+              scrolled 
+                ? 'text-gray-800 dark:text-gray-200 hover:text-accent dark:hover:text-accent' 
+                : 'text-white hover:text-accent'
+            }`}
+          >
+            Contact
+          </Link>
+          
+          {/* Dark Mode Toggle */}
+          <button 
+            onClick={toggleDarkMode}
+            aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+            className={`p-2 rounded-full ${
+              scrolled 
+                ? 'text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700' 
+                : 'text-white hover:bg-gray-700/30'
+            }`}
+          >
+            {darkMode ? <FaSun className="text-xl" /> : <FaMoon className="text-xl" />}
+          </button>
+        </nav>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map(link => (
-              <Link
-                key={link.name}
-                to={link.target}
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration={500}
-                className={`text-sm font-medium cursor-pointer hover:text-accent transition-colors duration-300 ${
-                  scrolled ? 'text-gray-700' : 'text-white'
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
-            <button
-              className={`btn-primary ${
-                scrolled
-                  ? 'bg-accent text-white hover:bg-accent-dark'
-                  : 'bg-white text-accent hover:bg-gray-100'
-              }`}
-              onClick={() => window.open('https://donate.diligentvessel.org', '_blank')}
-            >
-              Donate Now
-            </button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`p-2 rounded-lg ${
-                scrolled ? 'text-gray-800' : 'text-white'
-              }`}
-            >
-              {isMenuOpen ? (
-                <FaTimes className="h-6 w-6" />
-              ) : (
-                <FaBars className="h-6 w-6" />
-              )}
-            </button>
-          </div>
+        {/* Mobile Menu Button */}
+        <div className="flex items-center md:hidden">
+          <button 
+            onClick={toggleDarkMode}
+            aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+            className={`p-2 mr-2 rounded-full ${
+              scrolled 
+                ? 'text-gray-800 dark:text-gray-200' 
+                : 'text-white'
+            }`}
+          >
+            {darkMode ? <FaSun /> : <FaMoon />}
+          </button>
+          
+          <button
+            onClick={toggleMenu}
+            className={`text-2xl focus:outline-none ${
+              scrolled 
+                ? 'text-gray-800 dark:text-gray-200' 
+                : 'text-white'
+            }`}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+          >
+            {isOpen ? <FaTimes /> : <FaBars />}
+          </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      {isMenuOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
-          className="md:hidden bg-white shadow-lg p-6"
-        >
+      <motion.div
+        initial={{ opacity: 0, height: 0 }}
+        animate={{
+          opacity: isOpen ? 1 : 0,
+          height: isOpen ? 'auto' : 0,
+        }}
+        transition={{ duration: 0.3 }}
+        className="md:hidden overflow-hidden bg-white dark:bg-gray-800 shadow-lg"
+      >
+        <div className="container mx-auto px-6 py-4">
           <div className="flex flex-col space-y-4">
-            {navLinks.map(link => (
-              <Link
-                key={link.name}
-                to={link.target}
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration={500}
-                onClick={() => setIsMenuOpen(false)}
-                className="text-gray-800 font-medium hover:text-accent transition-colors duration-300"
-              >
-                {link.name}
-              </Link>
-            ))}
-            <button 
-              className="btn-primary bg-accent text-white hover:bg-accent-dark mt-4 w-full"
-              onClick={() => window.open('https://donate.diligentvessel.org', '_blank')}
+            <Link
+              to="about"
+              spy={true}
+              smooth={true}
+              offset={-70}
+              duration={500}
+              className="py-2 text-gray-800 dark:text-gray-200 hover:text-accent dark:hover:text-accent"
+              onClick={toggleMenu}
             >
-              Donate Now
-            </button>
+              About
+            </Link>
+            <Link
+              to="programs"
+              spy={true}
+              smooth={true}
+              offset={-70}
+              duration={500}
+              className="py-2 text-gray-800 dark:text-gray-200 hover:text-accent dark:hover:text-accent"
+              onClick={toggleMenu}
+            >
+              Programs
+            </Link>
+            <Link
+              to="projects"
+              spy={true}
+              smooth={true}
+              offset={-70}
+              duration={500}
+              className="py-2 text-gray-800 dark:text-gray-200 hover:text-accent dark:hover:text-accent"
+              onClick={toggleMenu}
+            >
+              Projects
+            </Link>
+            <Link
+              to="contact"
+              spy={true}
+              smooth={true}
+              offset={-70}
+              duration={500}
+              className="py-2 text-gray-800 dark:text-gray-200 hover:text-accent dark:hover:text-accent"
+              onClick={toggleMenu}
+            >
+              Contact
+            </Link>
           </div>
-        </motion.div>
-      )}
-    </nav>
+        </div>
+      </motion.div>
+    </header>
   );
 };
 
