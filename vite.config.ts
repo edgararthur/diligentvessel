@@ -1,12 +1,13 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': '/src',
+      '@': path.resolve(__dirname, './src'),
     },
   },
   build: {
@@ -29,12 +30,9 @@ export default defineConfig(({ mode }) => ({
         },
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
-        assetFileNames: ({ name }) => {
-          if (/\.(gif|jpe?g|png|svg|webp)$/.test(name ?? '')) {
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name?.endsWith('.jpg') || assetInfo.name?.endsWith('.png')) {
             return 'assets/images/[name]-[hash][extname]'
-          }
-          if (/\.css$/.test(name ?? '')) {
-            return 'assets/css/[name]-[hash][extname]'
           }
           return 'assets/[name]-[hash][extname]'
         },
@@ -49,4 +47,5 @@ export default defineConfig(({ mode }) => ({
   css: {
     devSourcemap: true,
   },
+  publicDir: 'public',
 }))
