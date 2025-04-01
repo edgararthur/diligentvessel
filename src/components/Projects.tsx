@@ -1,0 +1,200 @@
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { FaCalendarAlt, FaMapMarkerAlt, FaUsers } from 'react-icons/fa';
+
+interface Project {
+  id: number;
+  title: string;
+  category: string;
+  description: string;
+  image: string;
+  date: string;
+  location: string;
+  impact: string;
+}
+
+const projects: Project[] = [
+  {
+    id: 1,
+    title: 'Community Library Initiative',
+    category: 'Education',
+    description: 'Establishing a modern community library with over 5,000 books and digital resources to promote literacy and lifelong learning.',
+    image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    date: 'Ongoing since 2019',
+    location: 'Koforidua, Ghana',
+    impact: '2,000+ community members served',
+  },
+  {
+    id: 2,
+    title: 'Clean Water Access Project',
+    category: 'Health',
+    description: 'Installing water purification systems and wells to provide safe drinking water to underserved communities in rural areas.',
+    image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    date: 'Completed in 2022',
+    location: 'Asuogyaman District, Ghana',
+    impact: '10 villages, 5,000+ residents',
+  },
+  {
+    id: 3,
+    title: 'Youth Coding Academy',
+    category: 'Education',
+    description: 'Teaching programming and digital skills to young people through hands-on workshops and mentorship programs.',
+    image: 'https://images.unsplash.com/photo-1571330735066-03aaa9429d89?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    date: 'Ongoing since 2020',
+    location: 'Koforidua, Ghana',
+    impact: '300+ students trained',
+  },
+  {
+    id: 4,
+    title: 'Maternal Health Outreach',
+    category: 'Health',
+    description: 'Providing prenatal care, education, and support for expectant mothers in underserved communities to reduce maternal mortality.',
+    image: 'https://images.unsplash.com/photo-1566939233707-a4f5549d0678?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    date: 'Ongoing since 2018',
+    location: 'Eastern Region, Ghana',
+    impact: '500+ mothers supported',
+  },
+  {
+    id: 5,
+    title: 'Sustainable Agriculture Program',
+    category: 'Environment',
+    description: 'Training local farmers in sustainable farming techniques to improve crop yields while protecting the environment.',
+    image: 'https://images.unsplash.com/photo-1536599524557-5f784d24e26f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    date: 'Ongoing since 2021',
+    location: 'Various rural communities',
+    impact: '150+ farmers trained',
+  },
+  {
+    id: 6,
+    title: 'Cultural Heritage Festival',
+    category: 'Culture',
+    description: 'Annual celebration of local traditions, arts, and cultural practices to preserve heritage and promote cultural education.',
+    image: 'https://images.unsplash.com/photo-1575037581805-a6c9b0ab6fad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    date: 'Annual event',
+    location: 'Koforidua, Ghana',
+    impact: '1,000+ participants yearly',
+  },
+];
+
+interface ProjectCardProps {
+  project: Project;
+}
+
+const ProjectCard = ({ project }: ProjectCardProps) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+      className="overflow-hidden rounded-lg shadow-lg h-full"
+    >
+      <div className="relative overflow-hidden h-48">
+        <img
+          src={project.image}
+          alt={project.title}
+          className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500"
+        />
+        <div className="absolute top-4 right-4 bg-accent text-white text-xs font-semibold px-2 py-1 rounded">
+          {project.category}
+        </div>
+      </div>
+      <div className="p-6">
+        <h3 className="text-xl font-semibold mb-3">{project.title}</h3>
+        <p className="text-gray-600 mb-4">{project.description}</p>
+        <div className="space-y-2 text-sm text-gray-500">
+          <div className="flex items-center space-x-2">
+            <FaCalendarAlt className="text-accent" />
+            <span>{project.date}</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <FaMapMarkerAlt className="text-accent" />
+            <span>{project.location}</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <FaUsers className="text-accent" />
+            <span>{project.impact}</span>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const Projects = () => {
+  const categories = ['All', 'Education', 'Health', 'Environment', 'Culture'];
+  const [activeCategory, setActiveCategory] = useState('All');
+  const [showAll, setShowAll] = useState(false);
+
+  const filteredProjects = activeCategory === 'All'
+    ? projects
+    : projects.filter(project => project.category === activeCategory);
+
+  const displayedProjects = showAll ? projects : filteredProjects;
+
+  return (
+    <section id="projects" className="py-20 bg-gray-50">
+      <div className="container mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
+          <h2 className="section-title">Our Projects</h2>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto mt-6">
+            Explore our impactful initiatives that are making a real difference in our communities.
+          </p>
+        </motion.div>
+
+        {/* Category Filter */}
+        <div className="flex flex-wrap justify-center space-x-2 space-y-2 md:space-y-0 mb-10">
+          {categories.map(category => (
+            <button
+              key={category}
+              onClick={() => {
+                setActiveCategory(category);
+                setShowAll(false);
+              }}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
+                activeCategory === category && !showAll
+                  ? 'bg-accent text-white'
+                  : 'bg-white text-gray-700 hover:bg-gray-100'
+              }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+
+        {/* Project Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {displayedProjects.map(project => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mt-12"
+        >
+          <button 
+            className="btn-secondary"
+            onClick={() => {
+              setShowAll(true);
+              setActiveCategory('');
+            }}
+          >
+            View All Projects
+          </button>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default Projects;
