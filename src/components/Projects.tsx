@@ -77,11 +77,22 @@ const projects: Project[] = [
   },
 ];
 
+// This helps make image paths work in both development and production
+const getImagePath = (path: string) => {
+  // If the path is already an absolute URL, return it as is
+  if (path.startsWith('http')) {
+    return path;
+  }
+  // For local images, ensure they work in both dev and production
+  return new URL(path, import.meta.url).href;
+};
+
 interface ProjectCardProps {
   project: Project;
 }
 
 const ProjectCard = ({ project }: ProjectCardProps) => {
+  // Use the image path directly since ImageLoader handles fallbacks
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
