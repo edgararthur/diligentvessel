@@ -147,17 +147,18 @@ const Contact = () => {
             className="space-y-8"
           >
             {/* Map */}
-            <div className="rounded-lg overflow-hidden shadow-lg h-64 mb-8">
-              <iframe
-                title="Location Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63503.95521663825!2d-0.29159355!3d6.0942927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdf8414a0fc7a9d%3A0x35d85b89c91915ed!2sKoforidua%2C%20Ghana!5e0!3m2!1sen!2sus!4v1673000000001!5m2!1sen!2sus"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
+            <div className="rounded-lg overflow-hidden shadow-lg mb-8 relative h-64">
+              <img
+                src="https://images.unsplash.com/photo-1576475080960-62154cd5def3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Office location in Koforidua, Ghana"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                <div className="p-4 text-white">
+                  <h4 className="font-semibold">Our Office</h4>
+                  <p className="text-sm">123 Okponglo Road, Koforidua, Ghana</p>
+                </div>
+              </div>
             </div>
 
             {/* Contact Details */}
