@@ -77,7 +77,6 @@ const Hero: React.FC = () => {
         >
           <button 
             className="bg-accent hover:bg-accent/90 text-white px-8 py-3 rounded-full font-semibold transition-colors"
-            onClick={handleDonate}
           >
             Donate Now
           </button>

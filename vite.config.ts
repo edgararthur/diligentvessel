@@ -5,7 +5,7 @@ import path from 'node:path'
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   plugins: [react()],
-  base: './',
+  base: mode === 'production' ? './' : '/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -16,6 +16,7 @@ export default defineConfig(({ mode }) => ({
     assetsDir: 'assets',
     emptyOutDir: true,
     copyPublicDir: true,
+    sourcemap: true,
     rollupOptions: {
       output: {
         chunkFileNames: 'assets/js/[name]-[hash].js',

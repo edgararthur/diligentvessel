@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, HashRouter } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Navbar from './components/Navbar';
@@ -48,8 +48,11 @@ function App() {
     });
   }, []);
 
+  // Use HashRouter for better compatibility with static deployments
+  const RouterComponent = import.meta.env.PROD ? HashRouter : Router;
+
   return (
-    <Router basename={import.meta.env.BASE_URL || '/'}>
+    <RouterComponent>
       <div className="App transition-colors duration-300 bg-white dark:bg-gray-900">
         <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         <main>
@@ -69,7 +72,7 @@ function App() {
         </main>
         <Footer />
       </div>
-    </Router>
+    </RouterComponent>
   );
 }
 
